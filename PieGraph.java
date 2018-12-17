@@ -27,9 +27,10 @@ public class PieGraph extends ApplicationFrame {
      * Creates a new demo.
      *
      * @param title  the frame title.
+     * @param questionMC the single multiple choice question to be displayed in graphical form
      */
-    public PieGraph(String title) {
-
+    public PieGraph(String title, SingleMC questionMC) {
+        int fields = questionMC.getAnswers.size();
         super(title);
         PieDataset dataset = createDataset();
         JFreeChart chart = createChart(dataset);
@@ -47,6 +48,9 @@ public class PieGraph extends ApplicationFrame {
     private static PieDataset createDataset() {
 
         DefaultPieDataset result = new DefaultPieDataset();
+        for (int i = 0; i < ; i++) {
+            
+        }
         result.setValue("Java", new Double(43.2));
         result.setValue("Visual Basic", new Double(10.0));
         result.setValue("C/C++", new Double(17.5));

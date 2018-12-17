@@ -104,7 +104,7 @@ public class MultipleMC extends Question {
     public String toString() {
         String out = "";
         out += "Question: " + getQuestion() + "\n";
-        out += "Answers: " + printList(answers) + "\n";
+        out += "Answers: " + printList(getAnswers()) + "\n";
         return out;
     }
 
@@ -163,5 +163,19 @@ public class MultipleMC extends Question {
      */
     public void setAnswers(ArrayList<String> answers) {
         this.answers = answers;
+    }
+
+    /**
+     * @return the collectionOfAnswers
+     */
+    public int[] getCollectionOfAnswers() {
+        return collectionOfAnswers;
+    }
+
+    /**
+     * @param collectionOfAnswers the collectionOfAnswers to set
+     */
+    public void setCollectionOfAnswers(int[] collectionOfAnswers) {
+        this.collectionOfAnswers = collectionOfAnswers;
     }
 }
