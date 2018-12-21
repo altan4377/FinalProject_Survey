@@ -10,7 +10,7 @@ public class SingleMC extends Question {
     private String question;
     private int userSelected;
     private ArrayList<String> answers;
-    private int[] collectionOfAnswers = new int[answers.size()];
+    private int[] collectionOfAnswers = new int[12];
 
     /**
      * This is the primary constructor of the SingleMC class

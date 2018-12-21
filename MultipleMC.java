@@ -16,7 +16,7 @@ public class MultipleMC extends Question {
     private String question;
     private ArrayList<Integer> userSelectedAnswers;
     private ArrayList<String> answers;
-    private int[] collectionOfAnswers = new int[answers.size()];
+    private int[] collectionOfAnswers = new int[12];
 
     /**
      * This is the primary constructor of the MultipleMC class
@@ -51,6 +51,20 @@ public class MultipleMC extends Question {
         this(question, answers);
         this.userSelectedAnswers = userSelectedAnswers;
         addAnswerToCollection(collectionOfAnswers, userSelectedAnswers);
+    }
+    
+    /**
+     * This is the tertiary constructor of the MultipleMC class
+     *
+     * @param question - the question of this multiple choice question
+     * @param answers - the list of answers available to be selected by the user
+     * @param userSelectedAnswers - the indexes of the choice of the user in the
+     * list, stored in a list
+     * @param collectionOfAnswers - the array storing count of all the selections stored
+     */
+    public MultipleMC(String question, ArrayList<String> answers, ArrayList<Integer> userSelectedAnswers, int[] collectionOfAnswers) {
+        this(question, answers, userSelectedAnswers);
+        this.collectionOfAnswers = collectionOfAnswers;
     }
     
     /**
