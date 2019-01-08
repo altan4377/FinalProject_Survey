@@ -16,12 +16,9 @@ public class SingleMC extends Question {
      * This is the primary constructor of the SingleMC class
      */
     public SingleMC() {
-        question = "";
+        question = null;
         userSelected = 0;
-        answers = new ArrayList();
-        for(int i = 0; i < 12; i++){
-            collectionOfAnswers[i] = 0;
-        }
+        answers = null;
     }
 
     /**
@@ -34,9 +31,6 @@ public class SingleMC extends Question {
         this();
         this.question = question;
         this.answers = answers;
-        for(int i = 0; i < 12; i++){
-            collectionOfAnswers[i] = 0;
-        }
     }
 
     /**
@@ -52,7 +46,6 @@ public class SingleMC extends Question {
         addAnswerToCollection(collectionOfAnswers, userSelected);
     }
 
-    
     public SingleMC(String question, ArrayList<String> answers, int userSelected, int[] collectionOfAnswers) {
         this(question, answers, userSelected);
         this.collectionOfAnswers = collectionOfAnswers;
@@ -79,9 +72,9 @@ public class SingleMC extends Question {
      * SingleMC is the same
      */
     public boolean equals(SingleMC comparedQuestion) {
-        return this.question.equals(comparedQuestion.question)
-                && this.answers.containsAll(comparedQuestion.answers)
-                && comparedQuestion.answers.containsAll(this.answers);
+        return this.getQuestion().equals(comparedQuestion.getQuestion())
+                && this.getAnswers().containsAll(comparedQuestion.getAnswers())
+                && comparedQuestion.getAnswers().containsAll(this.getAnswers());
     }
 
     /**
@@ -91,7 +84,7 @@ public class SingleMC extends Question {
      * selections
      */
     public SingleMC clone() {
-        return new SingleMC(question, answers);
+        return new SingleMC(getQuestion(), getAnswers());
     }
 
     /**
@@ -101,8 +94,8 @@ public class SingleMC extends Question {
      */
     public String toString() {
         String out = "";
-        out += "Question: " + question + "\n";
-        out += "Answers: " + printList(answers) + "\n";
+        out += "Question: " + getQuestion() + "\n";
+        out += "Answers: " + printList(getAnswers()) + "\n";
         return out;
     }
 
@@ -161,5 +154,19 @@ public class SingleMC extends Question {
      */
     public void setAnswers(ArrayList<String> answers) {
         this.answers = answers;
+    }
+
+    /**
+     * @return the collectionOfAnswers
+     */
+    public int[] getCollectionOfAnswers() {
+        return collectionOfAnswers;
+    }
+
+    /**
+     * @param collectionOfAnswers the collectionOfAnswers to set
+     */
+    public void setCollectionOfAnswers(int[] collectionOfAnswers) {
+        this.collectionOfAnswers = collectionOfAnswers;
     }
 }

@@ -16,7 +16,7 @@ public class MultipleMC extends Question {
     private String question;
     private ArrayList<Integer> userSelectedAnswers;
     private ArrayList<String> answers;
-    private int[] collectionOfAnswers;
+    private int[] collectionOfAnswers = new int[12];
 
     /**
      * This is the primary constructor of the MultipleMC class
@@ -25,7 +25,6 @@ public class MultipleMC extends Question {
         question = null;
         userSelectedAnswers = null;
         answers = null;
-        collectionOfAnswers = new int[0];
     }
 
     /**
@@ -38,7 +37,6 @@ public class MultipleMC extends Question {
         this();
         this.question = question;
         this.answers = answers;
-        collectionOfAnswers = new int[answers.size()];
     }
 
     /**
@@ -54,21 +52,37 @@ public class MultipleMC extends Question {
         this.userSelectedAnswers = userSelectedAnswers;
         addAnswerToCollection(collectionOfAnswers, userSelectedAnswers);
     }
-    
+
+    /**
+     * This is the tertiary constructor of the MultipleMC class
+     *
+     * @param question - the question of this multiple choice question
+     * @param answers - the list of answers available to be selected by the user
+     * @param userSelectedAnswers - the indexes of the choice of the user in the
+     * list, stored in a list
+     * @param collectionOfAnswers - the array storing count of all the
+     * selections stored
+     */
+    public MultipleMC(String question, ArrayList<String> answers, ArrayList<Integer> userSelectedAnswers, int[] collectionOfAnswers) {
+        this(question, answers, userSelectedAnswers);
+        this.collectionOfAnswers = collectionOfAnswers;
+    }
+
     /**
      * This method will add the selected answer to an array of responses
      *
      * @param collectionOfAnswers - the array of answers storing the counter of
      * selected answers
-     * @param userSelectedAnswers - the list of indexes of the user's selected answers
+     * @param userSelectedAnswers - the list of indexes of the user's selected
+     * answers
      * @return - the updated answer counter storing array
      */
     public int[] addAnswerToCollection(int[] collectionOfAnswers, ArrayList<Integer> userSelectedAnswers) {
         int userSelected;
-        
+
         for (int i = 0; i < userSelectedAnswers.size(); i++) {
             userSelected = userSelectedAnswers.get(i);
-            
+
             collectionOfAnswers[userSelected] += 1;
 
         }
@@ -106,7 +120,7 @@ public class MultipleMC extends Question {
     public String toString() {
         String out = "";
         out += "Question: " + getQuestion() + "\n";
-        out += "Answers: " + printList(answers) + "\n";
+        out += "Answers: " + printList(getAnswers()) + "\n";
         return out;
     }
 
@@ -165,5 +179,19 @@ public class MultipleMC extends Question {
      */
     public void setAnswers(ArrayList<String> answers) {
         this.answers = answers;
+    }
+
+    /**
+     * @return the collectionOfAnswers
+     */
+    public int[] getCollectionOfAnswers() {
+        return collectionOfAnswers;
+    }
+
+    /**
+     * @param collectionOfAnswers the collectionOfAnswers to set
+     */
+    public void setCollectionOfAnswers(int[] collectionOfAnswers) {
+        this.collectionOfAnswers = collectionOfAnswers;
     }
 }

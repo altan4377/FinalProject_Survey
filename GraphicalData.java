@@ -2,7 +2,7 @@
  * GraphicalData class
  */
 
-package finalprojectdec12;
+package finalproject.tang.chen;
 
 abstract public class GraphicalData {
     private String typeOfGraph;

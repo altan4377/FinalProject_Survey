@@ -1,21 +1,21 @@
 /*
  * NumericalData class
  */
-
-package finalprojectdec12;
+package finalproject.tang.chen;
 
 import java.util.ArrayList;
 
 public class NumericalData {
+
     private ArrayList<Integer> numbers;
-    
+
     /**
      * This is the primary constructor of the NumericalData class
      */
-    public NumericalData(){
-        numbers= null;
+    public NumericalData() {
+        numbers = null;
     }
-    
+
     /**
      * This is the secondary constructor of the NumericalData class
      *
@@ -39,8 +39,7 @@ public class NumericalData {
     public void setNumbers(ArrayList<Integer> numbers) {
         this.numbers = numbers;
     }
-    
-    
+
     /**
      * This method is the equals method of the NumericalData class
      *
@@ -63,7 +62,7 @@ public class NumericalData {
         } else {
             same = false;
         }
-        
+
         return same;
     }
 
@@ -84,7 +83,7 @@ public class NumericalData {
     public String toString() {
         return "Number data: " + printList(numbers) + "\n";
     }
-    
+
     /**
      * This method will print out all the elements in a list
      *
@@ -93,7 +92,7 @@ public class NumericalData {
      */
     public String printList(ArrayList<Integer> numbers) {
         String out = "";
-        for (Integer num: numbers) {
+        for (Integer num : numbers) {
             out += num + "\n";
         }
         return out;
