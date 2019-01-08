@@ -1,0 +1,55 @@
+Reading files
+try{
+            FileReader fr = new FileReader("src\\searchexercise\\BookList.txt");
+            BufferedReader br = new BufferedReader(fr);
+            boolean eof = false;
+            while(!eof){
+                String sBookRef = br.readLine();
+                if(sBookRef == null){
+                    eof = true;
+                }else{
+                    int bookRef = Integer.parseInt(sBookRef);
+                    String bookName = br.readLine();
+                    bookList.add(new Book(bookRef, bookName));
+                }
+            }
+        }catch(IOException e){
+            System.out.println("ERROR " + e);
+        }
+
+Writing Files
+try{
+    String filename= "MyFile.txt";
+    FileWriter fw = new FileWriter(filename,true); //the true will append the new data
+    fw.write("add a line\n");//appends the string to the file
+    fw.close();
+}catch(IOException ioe){
+    System.err.println("IOException: " + ioe.getMessage());
+}
+
+Sorting Algorithm
+public static void QuickAscending(int[] numbers, int low, int high){
+        if(low < high){
+            int partitionIndex = partitionAscending(numbers,low,high);
+            QuickAscending(numbers, low, partitionIndex - 1);
+            QuickAscending(numbers,partitionIndex + 1, high);
+        }
+    }
+    
+    public static int partitionAscending(int[] numbers, int low, int high){
+        int n = numbers[high];
+        int wall = low - 1;
+        for(int i = low; i < high; i++){
+            quickIterations ++;
+            if(numbers[i] < n){
+                int temp = numbers[wall+1];
+                numbers[wall+1] = numbers[i];
+                numbers[i] = temp;
+                wall++;
+            }
+        }
+        int temp = numbers[wall+1];
+        numbers[wall+1] = numbers[high];
+        numbers[high] = temp;
+        return (wall + 1);
+    }
