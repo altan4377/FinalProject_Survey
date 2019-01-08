@@ -6,10 +6,16 @@
 package finalproject.tang.chen;
 
 import java.awt.Color;
+import java.io.FileReader;
+import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,7 +26,9 @@ public class MakeSurvey extends javax.swing.JFrame {
     SelectSurvey previousWindow;
     Welcome firstWindow;
     Survey survey;
-//    ArrayList<Question> questions = new ArrayList();
+    File file;
+    
+    ArrayList<Question> questions;
 
     /**
      * Creates new form MakeSurvey
@@ -43,8 +51,36 @@ public class MakeSurvey extends javax.swing.JFrame {
         txtChoice10.setText("");
         txtChoice11.setText("");
         txtChoice12.setText("");
+        openFiles();
+        questions = new ArrayList();
     }
 
+    public void openFiles(){
+        file = new File("src\\finalproject\\tang\\chen\\NewFile");
+        
+        try {
+            if(file.createNewFile()){
+//                System.out.println("FILE EXISTS");
+            }else{
+//                System.out.println("FILE CREATED");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(MakeSurvey.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
+//        try {
+//            FileWriter fw = new FileWriter(file);
+//            BufferedWriter bw = new BufferedWriter(fw);
+//            bw.write("Hello. It's me");
+//            bw.close();
+//        } catch (IOException ex) {
+//            Logger.getLogger(MakeSurvey.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -380,44 +416,63 @@ public class MakeSurvey extends javax.swing.JFrame {
 
         firstWindow.setVisible(true);
         this.setVisible(false);
+        
+        
+        
+        String preProcessTitle = txtTitleSurvey.getText();
+        String postProcessTitle = "";
+        for(int i = 0; i < preProcessTitle.length(); i++){
+            if((int)(preProcessTitle.charAt(i)) == 32){
+                postProcessTitle  = postProcessTitle + " ";
+            }else if((int)(preProcessTitle.charAt(i)) >= 65 && (int)(preProcessTitle.charAt(i)) <= 90){
+                postProcessTitle  = postProcessTitle + preProcessTitle.charAt(i);
+            }else if((int)(preProcessTitle.charAt(i)) >= 97 && (int)(preProcessTitle.charAt(i)) <= 122){
+                postProcessTitle  = postProcessTitle + preProcessTitle.charAt(i);
+            }
+        }
+        
+        
+        String fileName = "src\\finalproject\\tang\\chen\\" + postProcessTitle;
+        
+        File file2 = new File(fileName);
+        
+        file.renameTo(file2);
+        
+        ArrayList<String> whatIsThere = new ArrayList();
+        try{
+            FileReader fr = new FileReader("src\\finalproject\\tang\\chen\\SurveyStorage");
+            BufferedReader br = new BufferedReader(fr);
+            boolean eof = false;
+            while(!eof){
+                String line = br.readLine();
+                if(line == null){
+                    eof = true;
+                }else{
+                    whatIsThere.add(line);
+                }
+            }
+            br.close();
+        }catch(IOException e){
+            System.out.println("ERROR " + e);
+        }
+        
+        try {
+            FileWriter fw = new FileWriter("src\\finalproject\\tang\\chen\\SurveyStorage");
+            BufferedWriter bw = new BufferedWriter(fw);
+            for(int i = 0; i < whatIsThere.size(); i++){
+                bw.write(whatIsThere.get(i) + "\n");
+            }
+            bw.write(preProcessTitle); //When this writes everything is gone. Have to find a way to only add not subtract
+            bw.close();
+        } catch (IOException ex) {
+            Logger.getLogger(MakeSurvey.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_btnDoneActionPerformed
 
-    public void display(int questionNumber){
-        txtQuestionNumber.setText(questionNumber + "");
-        txtQuestion.setText(((survey.getSurveyQuestions()).get(questionNumber)).getQuestion());
-        String type = (((survey.getSurveyQuestions()).get(questionNumber)).getType());
-        cboType.setSelectedItem(type);
-        if(type.equals("Single Response Multiple Choice")){
-            txtChoice1.setText((((SingleMC)((survey.getSurveyQuestions()).get(questionNumber))).getAnswers()).get(0));
-            txtChoice2.setText((((SingleMC)((survey.getSurveyQuestions()).get(questionNumber))).getAnswers()).get(1));
-            txtChoice3.setText((((SingleMC)((survey.getSurveyQuestions()).get(questionNumber))).getAnswers()).get(2));
-            txtChoice4.setText((((SingleMC)((survey.getSurveyQuestions()).get(questionNumber))).getAnswers()).get(3));
-            txtChoice5.setText((((SingleMC)((survey.getSurveyQuestions()).get(questionNumber))).getAnswers()).get(4));
-            txtChoice6.setText((((SingleMC)((survey.getSurveyQuestions()).get(questionNumber))).getAnswers()).get(5));
-            txtChoice7.setText((((SingleMC)((survey.getSurveyQuestions()).get(questionNumber))).getAnswers()).get(6));
-            txtChoice8.setText((((SingleMC)((survey.getSurveyQuestions()).get(questionNumber))).getAnswers()).get(7));
-            txtChoice9.setText((((SingleMC)((survey.getSurveyQuestions()).get(questionNumber))).getAnswers()).get(8));
-            txtChoice10.setText((((SingleMC)((survey.getSurveyQuestions()).get(questionNumber))).getAnswers()).get(9));
-            txtChoice11.setText((((SingleMC)((survey.getSurveyQuestions()).get(questionNumber))).getAnswers()).get(10));
-            txtChoice12.setText((((SingleMC)((survey.getSurveyQuestions()).get(questionNumber))).getAnswers()).get(11));
-        }else if(type.equals("Multiple Response Multiple Choice")){
-            txtChoice1.setText((((MultipleMC)((survey.getSurveyQuestions()).get(questionNumber))).getAnswers()).get(0));
-            txtChoice2.setText((((MultipleMC)((survey.getSurveyQuestions()).get(questionNumber))).getAnswers()).get(1));
-            txtChoice3.setText((((MultipleMC)((survey.getSurveyQuestions()).get(questionNumber))).getAnswers()).get(2));
-            txtChoice4.setText((((MultipleMC)((survey.getSurveyQuestions()).get(questionNumber))).getAnswers()).get(3));
-            txtChoice5.setText((((MultipleMC)((survey.getSurveyQuestions()).get(questionNumber))).getAnswers()).get(4));
-            txtChoice6.setText((((MultipleMC)((survey.getSurveyQuestions()).get(questionNumber))).getAnswers()).get(5));
-            txtChoice7.setText((((MultipleMC)((survey.getSurveyQuestions()).get(questionNumber))).getAnswers()).get(6));
-            txtChoice8.setText((((MultipleMC)((survey.getSurveyQuestions()).get(questionNumber))).getAnswers()).get(7));
-            txtChoice9.setText((((MultipleMC)((survey.getSurveyQuestions()).get(questionNumber))).getAnswers()).get(8));
-            txtChoice10.setText((((MultipleMC)((survey.getSurveyQuestions()).get(questionNumber))).getAnswers()).get(9));
-            txtChoice11.setText((((MultipleMC)((survey.getSurveyQuestions()).get(questionNumber))).getAnswers()).get(10));
-            txtChoice12.setText((((MultipleMC)((survey.getSurveyQuestions()).get(questionNumber))).getAnswers()).get(11));
-        }
-    }
-    
     private void btnFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirstActionPerformed
-        display(0);
+        txtQuestionNumber.setText("0");
+        txtQuestion.setText(((survey.getSurveyQuestions()).get(0)).getQuestion());
     }//GEN-LAST:event_btnFirstActionPerformed
 
     private void btnBackwardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackwardActionPerformed
@@ -431,8 +486,7 @@ public class MakeSurvey extends javax.swing.JFrame {
     }//GEN-LAST:event_btnForwardActionPerformed
 
     private void btnLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastActionPerformed
-        int sizeSurvey = (survey.getSurveyQuestions()).size();
-        display(sizeSurvey - 1);
+        txtQuestionNumber.setText("size of array - 1");
     }//GEN-LAST:event_btnLastActionPerformed
 
     private void btnTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTypeActionPerformed
@@ -463,14 +517,26 @@ public class MakeSurvey extends javax.swing.JFrame {
             txtChoice10.setEditable(false);
             txtChoice11.setEditable(false);
             txtChoice12.setEditable(false);
+            txtChoice1.setBackground(Color.gray);
+            txtChoice2.setBackground(Color.gray);
+            txtChoice3.setBackground(Color.gray);
+            txtChoice4.setBackground(Color.gray);
+            txtChoice5.setBackground(Color.gray);
+            txtChoice6.setBackground(Color.gray);
+            txtChoice7.setBackground(Color.gray);
+            txtChoice8.setBackground(Color.gray);
+            txtChoice9.setBackground(Color.gray);
+            txtChoice10.setBackground(Color.gray);
+            txtChoice11.setBackground(Color.gray);
+            txtChoice12.setBackground(Color.gray);
         }
 
     }//GEN-LAST:event_btnTypeActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        Question newQuestion = null;
         try {
-            String filename = "src\\finalproject\\tang\\chen\\SurveyStorage";
-            FileWriter fw = new FileWriter(filename, true); //the true will append the new data
+            FileWriter fw = new FileWriter(file, true); //the true will append the new data
             BufferedWriter bw = new BufferedWriter(fw);
             String typeQuestion = cboType.getSelectedItem().toString();
             bw.write(typeQuestion + "\n"); 
@@ -502,9 +568,8 @@ public class MakeSurvey extends javax.swing.JFrame {
                 answers.add(txtChoice10.getText());
                 answers.add(txtChoice11.getText());
                 answers.add(txtChoice12.getText());
-                Question newQuestion = new SingleMC(question,answers);
-                newQuestion.setType("Single Response Multiple Choice");
-                (survey.getSurveyQuestions()).add(newQuestion);
+                newQuestion = new SingleMC(question,answers);
+//                survey.getSurveyQuestions().add(newQuestion);
             }else if(typeQuestion.equals("Multiple Response Multiple Choice")){
                 bw.write(txtChoice1.getText() + ", ");
                 bw.write(txtChoice2.getText() + ", ");
@@ -531,19 +596,18 @@ public class MakeSurvey extends javax.swing.JFrame {
                 answers.add(txtChoice10.getText());
                 answers.add(txtChoice11.getText());
                 answers.add(txtChoice12.getText());
-                Question newQuestion = new MultipleMC(question,answers);
-                newQuestion.setType("Multiple Response Multiple Choice");
-                (survey.getSurveyQuestions()).add(newQuestion);
+                newQuestion = new MultipleMC(question,answers);
+//                (survey.getSurveyQuestions()).add(new MultipleMC(question,answers));
             }else{
-                Question newQuestion = new ShortAnswer(question);
-                (survey.getSurveyQuestions()).add(newQuestion);
-                newQuestion.setType("Short Answer");
+//                (survey.getSurveyQuestions()).add(new ShortAnswer(question));
+                newQuestion = new ShortAnswer(question);
                 bw.write("Short answer question. Choices do not apply");
             }
             bw.close();
         } catch (IOException ioe) {
             System.err.println("IOException: " + ioe.getMessage());
         }
+        questions.add(newQuestion);
         txtQuestion.setText("");
         txtChoice1.setText("");
         txtChoice2.setText("");

@@ -1,61 +1,63 @@
 /*
  * Data class
  */
-
-package finalprojectdec12;
+package finalproject.tang.chen;
 
 import java.util.ArrayList;
 
 public class Data {
+
     private ArrayList<String> propertyNames;
     private NumericalData numericalData;
     private GraphicalData graphicalData;
-    
+
     private ArrayList<String> modeOfEachProperty;
     private ArrayList<String> leastCommonOfEachProperty;
-    
+
     /**
      * This is the primary constructor of the Data class
      */
-    public Data(){
+    public Data() {
         graphicalData = null;
-        numericalData  = null;
-        propertyNames  = null;
+        numericalData = null;
+        propertyNames = null;
         modeOfEachProperty = null;
         leastCommonOfEachProperty = null;
     }
-    
+
     /**
      * This is the 2nd constructor of the Data class
+     *
      * @param propertyNames the list of names of the properties a data set has
      */
-    public Data(ArrayList<String> propertyNames){
+    public Data(ArrayList<String> propertyNames) {
         this();
         this.propertyNames = propertyNames;
     }
-    
+
     /**
      * This is the 3rd constructor of the Data class
+     *
      * @param propertyNames the list of names of the properties a data set has
      * @param numericalData the list of data relating to the property
      */
-    public Data(ArrayList<String> propertyNames, NumericalData numericalData){
+    public Data(ArrayList<String> propertyNames, NumericalData numericalData) {
         this(propertyNames);
         this.numericalData = numericalData;
     }
-    
+
     /**
      * This is the 4th constructor of the Data class
+     *
      * @param propertyNames the list of names of the properties a data set has
      * @param numericalData the list of data relating to the property
      * @param graphicalData the type of graph created
      */
-    public Data(ArrayList<String> propertyNames, NumericalData numericalData, GraphicalData graphicalData){
+    public Data(ArrayList<String> propertyNames, NumericalData numericalData, GraphicalData graphicalData) {
         this(propertyNames, numericalData);
         this.graphicalData = graphicalData;
     }
-    
-    
+
     /**
      * This method is the equals method of the Data class
      *
@@ -71,6 +73,7 @@ public class Data {
 
     /**
      * This method is the clone method of the Data class
+     *
      * @return a new Data with the same basic attributes
      */
     public Data clone() {
@@ -83,26 +86,25 @@ public class Data {
      * @return the formatted representation of the question
      */
     public String toString() {
-        return  "Data: " + printList(propertyNames) + "\n" + 
-                numericalData + "\n"+
-                graphicalData;
+        return "Data: " + printList(propertyNames) + "\n"
+                + numericalData + "\n"
+                + graphicalData;
     }
 
-    
     /**
      * This method will print out all the elements in a list
+     *
      * @param list - the list of property names
      * @return - the properties in a string format
      */
-    public String printList(ArrayList<String> list){
+    public String printList(ArrayList<String> list) {
         String out = "";
-        for (String str: list) {
-            out+= str + "\n";
+        for (String str : list) {
+            out += str + "\n";
         }
         return out;
     }
-    
-    
+
     /**
      * @return the propertyNames
      */

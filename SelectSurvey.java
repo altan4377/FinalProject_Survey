@@ -7,6 +7,10 @@
 package finalproject.tang.chen;
 
 import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,8 +24,31 @@ public class SelectSurvey extends javax.swing.JFrame {
         initComponents();
         choice = c;
         getContentPane().setBackground(new Color(153, 204, 255));
+        setExistingSurvey();
     }
 
+    public void setExistingSurvey(){
+//        ArrayList<String> questions = new ArrayList();
+        try{
+            FileReader fr = new FileReader("src\\finalproject\\tang\\chen\\SurveyStorage");
+            BufferedReader br = new BufferedReader(fr);
+            boolean eof = false;
+            while(!eof){
+//                questions.add(br.readLine());
+                String title = br.readLine();
+                if(title == null){
+                    eof = true;
+                }else{
+                    cboSurveys.addItem(title);
+                }
+            }    
+            br.close();
+        }catch(IOException e){
+            System.out.println("ERROR " + e);
+        }
+        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,8 +75,6 @@ public class SelectSurvey extends javax.swing.JFrame {
                 btnExistingActionPerformed(evt);
             }
         });
-
-        cboSurveys.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnNew.setBackground(new java.awt.Color(255, 212, 26));
         btnNew.setText("NEW!");

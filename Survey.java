@@ -13,7 +13,7 @@ public class Survey {
      * This is the primary constructor of the Survey class
      */
     public Survey() {
-        surveyQuestions = new ArrayList();
+        surveyQuestions = null;
     }
 
     /**
